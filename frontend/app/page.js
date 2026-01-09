@@ -5,8 +5,6 @@ import GuestbookABI from "./abi.json";
 
 import contractAddressData from "./contract-address.json";
 
-// Ganti dengan alamat contract setelah deploy.
-// Untuk local hardhat biasanya: 0x5FbDB2315678afecb367f032d93F642f64180aa3
 const contractAddress = contractAddressData.address;
 
 export default function Home() {
@@ -15,7 +13,6 @@ export default function Home() {
     const [allMessages, setAllMessages] = useState([]);
     const [status, setStatus] = useState("");
 
-    // Fungsi untuk mengecek apakah wallet terhubung
     const checkIfWalletIsConnected = async () => {
         try {
             const { ethereum } = window;
@@ -38,7 +35,6 @@ export default function Home() {
         }
     };
 
-    // Fungsi untuk menghubungkan wallet
     const connectWallet = async () => {
         try {
             const { ethereum } = window;
@@ -50,7 +46,6 @@ export default function Home() {
             const chainId = await ethereum.request({ method: "eth_chainId" });
             console.log("Connected to chain " + chainId);
 
-            // 0x7a69 is 31337 in hex
             if (chainId !== "0x7a69") {
                 alert("Please connect to Localhost 8545 (Chain ID 31337)");
             }
@@ -62,7 +57,6 @@ export default function Home() {
         }
     };
 
-    // Fungsi untuk mengambil pesan
     const getAllMessages = async () => {
         try {
             const { ethereum } = window;
@@ -70,7 +64,6 @@ export default function Home() {
                 const provider = new ethers.BrowserProvider(ethereum);
                 const signer = await provider.getSigner();
 
-                // Cek apakah contract ada di network ini
                 const code = await provider.getCode(contractAddress);
                 if (code === "0x") {
                     console.error("Contract not found at address:", contractAddress);
@@ -82,16 +75,14 @@ export default function Home() {
 
                 const messages = await guestbookContract.getAllMessages();
 
-                // Format pesan agar lebih mudah dibaca
                 const messagesCleaned = messages.map(msg => {
                     return {
                         sender: msg.sender,
                         message: msg.message,
-                        timestamp: Number(msg.timestamp) // Konversi BigInt ke int biasa menggunakan Number()
+                        timestamp: Number(msg.timestamp)
                     };
                 });
 
-                // Set state
                 setAllMessages(messagesCleaned);
             } else {
                 console.log("Ethereum object doesn't exist!");
@@ -102,7 +93,6 @@ export default function Home() {
         }
     };
 
-    // Fungsi untuk mengirim pesan
     const sendMessage = async () => {
         try {
             const { ethereum } = window;
@@ -117,7 +107,7 @@ export default function Home() {
 
                 setStatus("Pesan terkirim!");
                 setMessage("");
-                getAllMessages(); // Refresh pesan
+                getAllMessages();
             }
         } catch (error) {
             console.log(error);

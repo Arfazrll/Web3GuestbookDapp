@@ -6,9 +6,6 @@ const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
 
 describe("Guestbook", function () {
-    // We define a fixture to reuse the same setup in every test.
-    // We use loadFixture to run this setup once, snapshot that state,
-    // and reset Hardhat Network to that snapshot in every test.
     async function deployGuestbookFixture() {
         const [owner, otherAccount] = await ethers.getSigners();
 
@@ -46,7 +43,7 @@ describe("Guestbook", function () {
 
             await expect(guestbook.postMessage(messageContent))
                 .to.emit(guestbook, "NewMessage")
-                .withArgs(owner.address, messageContent, anyValue); // We accept any timestamp
+                .withArgs(owner.address, messageContent, anyValue);
         });
 
         it("Should reject empty messages", async function () {

@@ -2,9 +2,7 @@
     --background: #000000;
     --surface: #0a0a0a;
     --primary: #00ff41;
-    /* Classic Matrix/Terminal Green */
     --secondary: #008f11;
-    /* Darker Green */
     --glass: rgba(10, 10, 10, 0.8);
     --glass-border: rgba(0, 255, 65, 0.2);
     --text: #e0e0e0;
@@ -18,7 +16,6 @@ body {
     background-color: var(--background);
     color: var(--text);
     font-family: 'Courier New', Courier, monospace;
-    /* Monospace for raw blockchain feel */
     min-height: 100vh;
     background-image:
         linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
