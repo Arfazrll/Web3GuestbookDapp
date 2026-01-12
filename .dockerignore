@@ -1,0 +1,8 @@
+node_modules
+.next
+artifacts
+cache
+.git
+.gitignore
+README.md
+LICENSE

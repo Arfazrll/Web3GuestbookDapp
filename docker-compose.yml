@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8545:8545"
+    networks:
+      - web3-net
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_RPC_URL=http://backend:8545
+    networks:
+      - web3-net
+networks:
+  web3-net:
+    driver: bridge
