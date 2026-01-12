@@ -46,8 +46,11 @@ export default function Home() {
             const chainId = await ethereum.request({ method: "eth_chainId" });
             console.log("Connected to chain " + chainId);
 
-            if (chainId !== "0x7a69") {
-                alert("Please connect to Localhost 8545 (Chain ID 31337)");
+            const targetChainId = process.env.NEXT_PUBLIC_CHAIN_ID || "31337";
+            const hexChainId = "0x" + Number(targetChainId).toString(16);
+
+            if (chainId !== hexChainId) {
+                alert(`Please connect to Localhost 8545 (Chain ID ${targetChainId})`);
             }
 
             setCurrentAccount(accounts[0]);
