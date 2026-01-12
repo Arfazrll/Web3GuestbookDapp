@@ -12,8 +12,8 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    environment:
-      - NEXT_PUBLIC_RPC_URL=http://backend:8545
+    env_file:
+      - ./frontend/.env.local
     networks:
       - web3-net
 networks:
